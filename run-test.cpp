@@ -19,5 +19,15 @@ int main() {
     double price = 5.2;
     personType person("Quom", "Sandwich", "124 Firehouse Way", 76, "04-04-2026", 'M', 24);
 
+    // init pointers
+
+    int *xPtr = &x;
+    int *yPtr = &y;
+    int *zPtr = &z;
+    char *cPtr = &c;
+    double *pricePtr = &price;
+    personType *personPtr = &person;
+
+
     
 }
