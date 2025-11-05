@@ -1,3 +1,10 @@
+/*
+    Programmer: Ryan Posey
+    Assignment: L12
+    Purpose: Practice using pointers
+    Due date: 11/4/2025
+*/
+
 /**
  * @file studentType.h
  * @brief Declaration of the studentType class which extends personType with

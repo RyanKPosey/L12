@@ -1,8 +1,8 @@
 /*
     Programmer: Ryan Posey
-    Assignment: L11
-    Purpose: Practice class inheritance
-    Due date: 10/29/2025
+    Assignment: L12
+    Purpose: Practice using pointers
+    Due date: 11/4/2025
 */
 
 /**
