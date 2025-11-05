@@ -32,7 +32,7 @@ int main() {
     cout << left << setw(20) << "address:" << &person << endl << endl;
 
     // init pointers
-    
+
     int *xPtr = &x;
     int *yPtr = &y;
     int *zPtr = &z;
@@ -40,6 +40,11 @@ int main() {
     double *pricePtr = &price;
     personType *personPtr = &person;
 
-
-    
+    cout << "Pointer variable values:" << endl;
+    cout << left << setw(10) << "xPtr: " << setw(10) << *xPtr << setw(10) << "address:" << (void*)xPtr << endl;
+    cout << left << setw(10) << "yPtr: " << setw(10) << *yPtr << setw(10) << "address:" << (void*)yPtr << endl;
+    cout << left << setw(10) << "zPtr: " << setw(10) << *zPtr << setw(10) << "address:" << (void*)zPtr << endl;
+    cout << left << setw(10) << "cPtr: " << setw(10) << *cPtr << setw(10) << "address:" << (void*)cPtr << endl;
+    cout << left << setw(10) << "pricePtr: " << setw(10) << *pricePtr << setw(10) << "address:" << (void*)pricePtr << endl;
+    cout << "personPtr: " << endl; personPtr->print(); cout << endl;
 }
