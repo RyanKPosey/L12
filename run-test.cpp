@@ -27,7 +27,9 @@ int main() {
     cout << left << setw(20) << "y:"     << setw(12) << y      << setw(20) << "address:" << &y << endl;
     cout << left << setw(20) << "z:"     << setw(12) << z      << setw(20) << "address:" << &z << endl;
     cout << left << setw(20) << "c:"     << setw(12) << c      << setw(20) << "address:" << (void*)&c << endl;
-    cout << left << setw(20) << "price:" << setw(12) << price  << setw(20) << "address:" << &price << endl;
+    cout << left << setw(20) << "price:" 
+        << fixed << setprecision(2) << setw(12) << price 
+        << defaultfloat << setprecision(6) << setw(20) << "address:" << &price << endl;
     cout << "person: " << endl; person.print(); cout << endl;
     cout << left << setw(20) << "address:" << &person << endl << endl;
 
@@ -41,10 +43,48 @@ int main() {
     personType *personPtr = &person;
 
     cout << "Pointer variable values:" << endl;
-    cout << left << setw(10) << "xPtr: " << setw(10) << *xPtr << setw(10) << "address:" << (void*)xPtr << endl;
-    cout << left << setw(10) << "yPtr: " << setw(10) << *yPtr << setw(10) << "address:" << (void*)yPtr << endl;
-    cout << left << setw(10) << "zPtr: " << setw(10) << *zPtr << setw(10) << "address:" << (void*)zPtr << endl;
-    cout << left << setw(10) << "cPtr: " << setw(10) << *cPtr << setw(10) << "address:" << (void*)cPtr << endl;
-    cout << left << setw(10) << "pricePtr: " << setw(10) << *pricePtr << setw(10) << "address:" << (void*)pricePtr << endl;
+    cout << left << setw(10) << "xPtr: " << setw(10) << *xPtr << setw(10) << "address:" << static_cast<const void*>(xPtr) << endl;
+    cout << left << setw(10) << "yPtr: " << setw(10) << *yPtr << setw(10) << "address:" << static_cast<const void*>(yPtr) << endl;
+    cout << left << setw(10) << "zPtr: " << setw(10) << *zPtr << setw(10) << "address:" << static_cast<const void*>(zPtr) << endl;
+    cout << left << setw(10) << "cPtr: " << setw(10) << *cPtr << setw(10) << "address:" << static_cast<const void*>(cPtr) << endl;
+    cout << left << setw(10) << "pricePtr: " 
+        << fixed << setprecision(2) << setw(10) << *pricePtr 
+        << defaultfloat << setprecision(6) << setw(10) << "address:" << static_cast<const void*>(pricePtr) << endl;
+    cout << "personPtr: " << endl; personPtr->print(); cout << endl;
+
+    cout << "[Before changes via pointers]" << endl;
+    cout << left << setw(10) << "xPtr: " << setw(10) << *xPtr << setw(10) << "address:" << static_cast<const void*>(xPtr) << endl;
+    cout << left << setw(10) << "yPtr: " << setw(10) << *yPtr << setw(10) << "address:" << static_cast<const void*>(yPtr) << endl;
+    cout << left << setw(10) << "zPtr: " << setw(10) << *zPtr << setw(10) << "address:" << static_cast<const void*>(zPtr) << endl;
+    cout << left << setw(10) << "cPtr: " << setw(10) << *cPtr << setw(10) << "address:" << static_cast<const void*>(cPtr) << endl;
+    // Ensure pricePtr dereferenced value has correct precision
+    cout << left << setw(10) << "pricePtr: " 
+        << fixed << setprecision(2) << setw(10) << *pricePtr 
+        << defaultfloat << setprecision(6) << setw(10) << "address:" << static_cast<const void*>(pricePtr) << endl;
+    cout << "personPtr: " << endl; personPtr->print(); cout << endl;
+
+    // modify values via pointers
+    *xPtr = 20;
+    *yPtr = 40;
+    *zPtr = 40;
+    *cPtr = 'Z';
+    *pricePtr = 99.99;
+    personPtr->setFirstName("Sandwich");
+    personPtr->setLastName("Lettuce");
+    personPtr->setAddress("999 Pointer St");
+    personPtr->setHeight(70);
+    personPtr->setDOB("11-01-2040");
+    personPtr->setGender('F');
+    personPtr->setAge(30);
+
+    cout << "[After changes via pointers]" << endl;
+    cout << left << setw(10) << "xPtr: " << setw(10) << *xPtr << setw(10) << "address:" << static_cast<const void*>(xPtr) << endl;
+    cout << left << setw(10) << "yPtr: " << setw(10) << *yPtr << setw(10) << "address:" << static_cast<const void*>(yPtr) << endl;
+    cout << left << setw(10) << "zPtr: " << setw(10) << *zPtr << setw(10) << "address:" << static_cast<const void*>(zPtr) << endl;
+    cout << left << setw(10) << "cPtr: " << setw(10) << *cPtr << setw(10) << "address:" << static_cast<const void*>(cPtr) << endl;
+    // Once again ensure pricePtr dereferenced value has correct precision
+    cout << left << setw(10) << "pricePtr: " 
+        << fixed << setprecision(2) << setw(10) << *pricePtr 
+        << defaultfloat << setprecision(6) << setw(10) << "address:" << static_cast<const void*>(pricePtr) << endl;
     cout << "personPtr: " << endl; personPtr->print(); cout << endl;
 }
