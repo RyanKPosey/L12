@@ -22,16 +22,16 @@ int main() {
 
 
     cout << "Non-pointer variable values:" << endl;
-    // label (20) | value (12) | address (20)
-    cout << left << setw(20) << "x:"     << setw(12) << x      << setw(20) << "address:" << &x << endl;
-    cout << left << setw(20) << "y:"     << setw(12) << y      << setw(20) << "address:" << &y << endl;
-    cout << left << setw(20) << "z:"     << setw(12) << z      << setw(20) << "address:" << &z << endl;
-    cout << left << setw(20) << "c:"     << setw(12) << c      << setw(20) << "address:" << (void*)&c << endl;
-    cout << left << setw(20) << "price:" 
-        << fixed << setprecision(2) << setw(12) << price 
-        << defaultfloat << setprecision(6) << setw(20) << "address:" << &price << endl;
+    // make this block consistent with the pointer output (label | value | address)
+    cout << left << setw(10) << "x:" << setw(10) << x << setw(10) << "address:" << static_cast<const void*>(&x) << endl;
+    cout << left << setw(10) << "y:" << setw(10) << y << setw(10) << "address:" << static_cast<const void*>(&y) << endl;
+    cout << left << setw(10) << "z:" << setw(10) << z << setw(10) << "address:" << static_cast<const void*>(&z) << endl;
+    cout << left << setw(10) << "c:" << setw(10) << c << setw(10) << "address:" << static_cast<const void*>(&c) << endl;
+    cout << left << setw(10) << "price:" 
+         << fixed << setprecision(2) << setw(10) << price 
+         << defaultfloat << setprecision(6) << setw(10) << "address:" << static_cast<const void*>(&price) << endl;
     cout << "person: " << endl; person.print(); cout << endl;
-    cout << left << setw(20) << "address:" << &person << endl << endl;
+    cout << left << setw(10) << "address:" << static_cast<const void*>(&person) << endl << endl;
 
     // init pointers
 
