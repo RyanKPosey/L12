@@ -36,7 +36,7 @@ int main() {
         cin >> height;
         cout << "Enter DOB for person " << i + 1 << ": ";
         cin >> dob;
-        cout << "Enter gender for person ex: 'M'" << i + 1 << ": ";
+        cout << "Enter gender for person " << i + 1 << "(ex: 'M' or 'F'): ";
         cin >> gender;
         cout << "Enter age for person " << i + 1 << ": ";
         cin >> age;
