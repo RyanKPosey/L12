@@ -28,8 +28,6 @@ int main() {
         cin >> firstName;
         cout << "Enter last name for person " << i + 1 << ": ";
         cin >> lastName;
-        cout << "Enter age for person " << i + 1 << ": ";
-        cin >> age;
         cout << "Enter address for person " << i + 1 << ": ";
         cin >> address;
         cout << "Enter height (in inches) for person " << i + 1 << ": ";
