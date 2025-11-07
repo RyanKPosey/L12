@@ -25,13 +25,10 @@ int main() {
 
     // get user input
     for (int i = 0; i < 5; i++) {
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << "Enter first name for person " << i + 1 << ": ";
         std::getline(cin, firstName);
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << "Enter last name for person " << i + 1 << ": ";
         std::getline(cin, lastName);
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         cout << "Enter address for person " << i + 1 << ": ";
         std::getline(cin, address);
         cout << "Enter height (in inches) for person " << i + 1 << ": ";
@@ -43,6 +40,8 @@ int main() {
         cin >> gender;
         cout << "Enter age for person " << i + 1 << ": ";
         cin >> age;
+        // consume the leftover newline so the next getline for firstName works
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         // create personType object and add to array
         people[i] = new personType(firstName, lastName, address, height, dob, gender, age);
     }
