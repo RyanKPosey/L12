@@ -1,8 +1,8 @@
 /*
     Programmer: Ryan Posey
     Assignment: L12
-    Purpose: Practice using pointers
-    Due date: 11/4/2025
+    Purpose: Practice polymorphism and inheritance
+    Due date: 11/9/2025
 */
 #ifndef PERSON_TYPE_H
 #define PERSON_TYPE_H

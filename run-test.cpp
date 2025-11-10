@@ -1,8 +1,8 @@
 /*
     Programmer: Ryan Posey
     Assignment: L12
-    Purpose: Practice using pointers
-    Due date: 11/6/2025
+    Purpose: Practice polymorphism and inheritance
+    Due date: 11/9/2025
 */
 
 #include <iostream>
