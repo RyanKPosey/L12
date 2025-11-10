@@ -113,7 +113,7 @@ public:
      * p.print();
      * @endcode
      */
-    void print() const;
+    virtual void print() const;
 
     /**
      * @brief Compare two personType objects case-insensitively for string fields.
