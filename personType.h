@@ -14,7 +14,9 @@
 /**
  * \class personType
  * \brief Represents a person with identity and basic demographics.
- * \details Stores name, address, DOB, gender, height (inches), and age.
+ * \details Stores name, address, DOB, gender, height (inches), age,
+ * and optional parent pointers (mother/father). Parent pointers are
+ * non-owning raw pointers that may be nullptr when unknown.
  */
 class personType { 
     /** \brief First name (may be sentinel like "Not Set"). */
@@ -95,15 +97,21 @@ public:
     personType(); // Default constructor
 
     /**
-     * @brief Destructor.
+     * @brief Virtual destructor.
+     *
+     * Declared virtual to allow safe polymorphic deletion if this class
+     * is used as a base for derived types.
      *
      * @pre  Object is valid.
      * @post Performs cleanup (none required for this type).
      */
-    ~personType();
+    virtual ~personType();
 
     /**
      * @brief Print a formatted representation of the person.
+     *
+     * This member is virtual so derived classes can override the output
+     * format. It streams a human-readable representation to stdout.
      *
      * @pre  std::cout is available.
      * @post Streams a human-readable representation to stdout.
@@ -159,7 +167,11 @@ public:
      * @brief Set the age (clamped to [0,999]).
      */
     void setAge(uint16_t age);
+
+    /** \brief Set this person's mother pointer (may be nullptr). */
     void setMother(personType* mother);
+
+    /** \brief Set this person's father pointer (may be nullptr). */
     void setFather(personType* father);
 
     // Getters
@@ -179,7 +191,10 @@ public:
     static int getTallest(const std::vector<personType>& people);
     static int getOldest(const std::vector<personType>& people);
     static int getYoungest(const std::vector<personType>& people);
+    /** \brief Get pointer to this person's mother (may be nullptr). */
     personType* getMother() const;
+
+    /** \brief Get pointer to this person's father (may be nullptr). */
     personType* getFather() const;
 };
 
