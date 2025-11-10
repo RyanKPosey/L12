@@ -38,6 +38,9 @@ class personType {
     /** \brief Age in years (clamped to [0,999]). */
     uint16_t age_{};
 
+    personType* mother {nullptr};
+    personType* father {nullptr};
+
 public:
     /**
      * @brief Full constructor.
@@ -156,6 +159,8 @@ public:
      * @brief Set the age (clamped to [0,999]).
      */
     void setAge(uint16_t age);
+    void setMother(personType* mother);
+    void setFather(personType* father);
 
     // Getters
     /**
@@ -174,6 +179,8 @@ public:
     static int getTallest(const std::vector<personType>& people);
     static int getOldest(const std::vector<personType>& people);
     static int getYoungest(const std::vector<personType>& people);
+    personType* getMother() const;
+    personType* getFather() const;
 };
 
 #endif // PERSON_TYPE_H
