@@ -85,6 +85,17 @@ public:
     professorType(const std::string& f, const std::string& l);
 
     /**
+     * @brief Shallow copy constructor.
+     *
+     * Copies base `personType` fields and professor-specific strings
+     * (`employeeID`, `department`, `degree`). Parent pointers are copied
+     * shallowly.
+     *
+     * @param other Professor to copy from.
+     */
+    professorType(const professorType& other);
+
+    /**
      * @brief Full constructor initializing all personType and professorType
      *        fields.
      *

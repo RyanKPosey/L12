@@ -22,6 +22,15 @@ professorType::professorType()
     setDegree("NOT SET");
 }
 
+// Shallow copy constructor
+professorType::professorType(const professorType& other)
+    : personType(other)
+{
+    employeeID = other.employeeID;
+    department = other.department;
+    degree = other.degree;
+}
+
 // Constructor with first and last name
 professorType::professorType(const std::string& first, const std::string& last)
     : personType(first, last)

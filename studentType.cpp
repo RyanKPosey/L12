@@ -45,6 +45,15 @@ studentType::~studentType(){
         //cout << "Inside studentType Destructor for: " << getFirstName() << endl;
 }
 
+// Shallow copy constructor
+studentType::studentType(const studentType& other)
+        : personType(other) // copy base
+{
+        id = other.id;
+        classification = other.classification;
+        gpa = other.gpa;
+}
+
 
 // Setters
 void studentType::setGPA(double g) {

@@ -64,6 +64,17 @@ public:
     studentType(std::string fName, std::string lName);
 
     /**
+     * @brief Shallow copy constructor.
+     *
+     * Copies the base `personType` fields and the student-specific fields
+     * (`gpa`, `classification`, `id`). Parent pointers are copied as-is
+     * (shallow copy).
+     *
+     * @param other Student to copy from.
+     */
+    studentType(const studentType& other);
+
+    /**
      * @brief Full constructor.
      *
      * @param fName First name.
