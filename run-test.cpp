@@ -9,57 +9,25 @@
 #include "personType.h"
 #include <iomanip>
 #include <limits>
+#include "studentType.h"
+#include "professorType.h"
 
 using namespace std;
 
 int main() {
-    // init people array
-    personType **people = new personType*[5];
-    string firstName;
-    string lastName;
-    int age;
-    string address;
-    double height;
-    string dob;
-    char gender;
+    personType person("Alesandra", "Sandwich", "123 Cookie St", 76.5, "1990-01-04", 'M', 33);
+    studentType student("Alice", "Allison", 4.5, "Junior", "S456");
+    professorType professor("Dr. Bob", "Builder", "456 Construction Ave", 80.0, "1985-05-12", 'M', 40, "E456","Engineering", "PhD");
 
-    // get user input
-    for (int i = 0; i < 5; i++) {
-        cout << "Enter first name for person " << i + 1 << ": ";
-        std::getline(cin, firstName);
-        cout << "Enter last name for person " << i + 1 << ": ";
-        std::getline(cin, lastName);
-        cout << "Enter address for person " << i + 1 << ": ";
-        std::getline(cin, address);
-        cout << "Enter height (in inches) for person " << i + 1 << ": ";
-        cin >> height;
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        cout << "Enter DOB for person " << i + 1 << ": ";
-        std::getline(cin, dob);
-        cout << "Enter gender for person " << i + 1 << "(ex: 'M' or 'F'): ";
-        cin >> gender;
-        cout << "Enter age for person " << i + 1 << ": ";
-        cin >> age;
-        // consume the leftover newline so the next getline for firstName works
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        // create personType object and add to array
-        people[i] = new personType(firstName, lastName, address, height, dob, gender, age);
+    student.setMother(&person);
+    student.setFather(&professor);
+
+    personType copyOfStudent = student; // Shallow copy
+
+    personType* people[4] = { &person, &student, &professor, &copyOfStudent };
+
+    for (const auto& p : people) {
+        p->print();
+        cout << "----------------------------------------" << endl;
     }
-
-    // print people
-    for (int i = 0; i < 5; i++) {
-        cout << "[Person " << i + 1 << "]" << endl;
-        people[i]->print();
-    }
-
-    // delete people
-
-    for(int i = 0; i < 5; i++) {
-        delete people[i];
-    }
-
-    delete[] people;
-
-    cout << "All memory freed. Clear for pancakes!" << endl;
-
 }
