@@ -24,6 +24,14 @@ int main() {
 
     personType copyOfStudent = student; // Shallow copy
 
+    copyOfStudent.setFirstName("CopiedAlice");
+    copyOfStudent.setLastName("CopiedAllison");
+    copyOfStudent.setAddress("456 New Address St");
+    copyOfStudent.setAge(21);
+    copyOfStudent.setHeight(65.0);
+    copyOfStudent.setDOB("2002-02-02");
+    copyOfStudent.setGender('F');
+
     personType* people[4] = { &person, &student, &professor, &copyOfStudent };
 
     for (const auto& p : people) {
