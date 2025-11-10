@@ -81,6 +81,20 @@ bool compareStringCaseInsensitive(const string& string1, const string& string2) 
 }
 
 void personType::print() const { // Stretch 2 (Formatted output)
+    if (this->getMother() != nullptr) {
+        cout << left << setw(10) << "Mother: " << 
+            left << this->getMother()->getFirstName() << " " << this->getMother()->getLastName() << endl;
+    } else {
+        cout << left << setw(10) << "Mother: " << left << "NOT SET" << endl;
+    }
+
+    if (this->getFather() != nullptr) {
+        cout << left << setw(10) << "Father: " << 
+            left << this->getFather()->getFirstName() << " " << this->getFather()->getLastName() << endl;
+    } else {
+        cout << left << setw(10) << "Father: " << left << "NOT SET" << endl;
+    }
+
     std::cout <<  left << setw(10) << " | Name: " << left << this->getName() << 
         left << setw(10) << " | Address: " << left << this->getAddress() << endl <<
         left << setw(10) << " | Height: " << left << std::fixed << std::setprecision(1) << this->getHeight() << " in" <<
