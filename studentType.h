@@ -140,7 +140,7 @@ public:
     /**
      * @brief Print the student data (delegates to personType::print).
      */
-    void print() const;
+    void print() const override;
 
     /**
      * @brief Compare two studentType objects for equality.

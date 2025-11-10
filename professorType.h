@@ -243,7 +243,7 @@ public:
     * p.print();
     * @endcode
      */
-    void print() const;
+    void print() const override;
 
     /**
      * @brief Compare two professorType objects for equality.
