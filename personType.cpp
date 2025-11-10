@@ -165,6 +165,15 @@ bool personType::equals(const personType& other) const {
         age_ = static_cast<uint16_t>(age);
     }
 
+    personType* personType::getMother() const {
+        return mother;
+    }
+
+    personType* personType::getFather() const {
+        return father;
+    }
+
+
     // Getters
 
     string personType::getName() const { 
@@ -213,4 +222,12 @@ int personType::getYoungest(const vector<personType>& people) {
         }
     }
     return static_cast<int>(youngestIndex); // Return int so compatible with iostream
+}
+
+void personType::setMother(personType* mother) {
+    this->mother = mother;
+}
+
+void personType::setFather(personType* father) {
+    this->father = father;
 }
