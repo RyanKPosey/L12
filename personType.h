@@ -96,7 +96,21 @@ public:
      */
     personType(); // Default constructor
 
-    personType(const personType& other); // Shallow copy constructor
+    /**
+     * @brief Shallow copy constructor.
+     *
+     * Constructs a new personType by copying the scalar and std::string
+     * members from @p other. Parent pointers (`mother` and `father`) are
+     * copied as-is (shallow copy) — no new person objects are created and
+     * ownership is not transferred. This preserves the non-owning pointer
+     * semantics used throughout the codebase.
+     *
+     * @param other The personType to copy from.
+     * @pre  @p other is a valid, constructed personType.
+     * @post The new object has the same field values as @p other. Both
+     *       objects may point to the same mother/father objects (if set).
+     */
+    personType(const personType& other);
 
     /**
      * @brief Virtual destructor.
