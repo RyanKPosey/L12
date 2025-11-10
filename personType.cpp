@@ -47,6 +47,18 @@ personType::personType() { // Default constructor
     age_ = 0;
 }
 
+personType::personType(const personType& other) { // Shallow copy constructor
+    firstName_ = other.firstName_;
+    lastName_ = other.lastName_;
+    address_ = other.address_;
+    height_inches_ = other.height_inches_;
+    date_of_birth_ = other.date_of_birth_;
+    gender_ = other.gender_;
+    age_ = other.age_;
+    mother = other.mother;
+    father = other.father;
+}
+
 personType::~personType() { // Destructor
     //cout << "Destructor has been called" << endl;
 }

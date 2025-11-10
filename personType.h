@@ -96,6 +96,8 @@ public:
      */
     personType(); // Default constructor
 
+    personType(const personType& other); // Shallow copy constructor
+
     /**
      * @brief Virtual destructor.
      *
