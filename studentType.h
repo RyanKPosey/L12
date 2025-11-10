@@ -138,7 +138,14 @@ public:
     std::string getClassification() const;
 
     /**
-     * @brief Print the student data (delegates to personType::print).
+     * @brief Print the student data to stdout (overrides personType::print).
+     *
+     * @pre  std::cout is available.
+     * @post Streams a human-readable representation of the student to stdout.
+     * @details
+     * This override should call `personType::print()` to emit the common
+     * person fields (name, address, DOB, etc.) and then output the
+     * student-specific fields such as GPA, classification, and student ID.
      */
     void print() const override;
 
