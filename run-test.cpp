@@ -38,4 +38,14 @@ int main() {
         p->print();
         cout << "----------------------------------------" << endl;
     }
+
+    cout << "\nClean up memory\n";
+    // iterate by reference so we can null out the array entries after delete
+    for (auto& p : people) {
+        delete p;
+        p = nullptr;
+    }
+
+    cout << "Memory has been freed\n";
+    return 0;
 }
