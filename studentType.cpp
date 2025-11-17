@@ -1,8 +1,8 @@
 /*
     Programmer: Ryan Posey
-    Assignment: L12
-    Purpose: Practice polymorphism and inheritance
-    Due date: 11/9/2025
+    Assignment: L12D
+    Purpose: Practice dynamic memory allocation
+    Due date: 11/16/2025
 */
 
 #include "studentType.h"
