@@ -15,6 +15,7 @@
 using namespace std;
 
 int main() {
+	 // Create objects dynamically
     personType* person = new personType("Alesandra", "Sandwich", "123 Cookie St", 76.5, "1990-01-04", 'M', 33);
     studentType* student = new studentType("Alice", "Allison", 4.5, "Junior", "S456");
     professorType* professor = new professorType("Dr. Bob", "Builder", "456 Construction Ave", 80.0, "1985-05-12", 'M', 40, "E456","Engineering", "PhD");
