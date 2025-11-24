@@ -1,10 +1,5 @@
 /*
     Programmer: Ryan Posey
-    Assignment: L12D
-    Purpose: Practice dynamic memory allocation
-    Due date: 11/16/2025
-/*
-    Programmer: Ryan Posey
     Assignment: L12E
     Purpose: Abstract base class implementation (personType)
     Date: 11/24/2025
