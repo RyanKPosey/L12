@@ -8,6 +8,7 @@
 #include "professorType.h"
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
@@ -82,16 +83,28 @@ std::string professorType::getDegree() const {
 
 // Print
 void professorType::print() const {
-    personType::print();
-    cout << "\tEmployee ID: " << employeeID << endl;
-    cout << "\tDepartment: " << department << endl;
-    cout << "\tDegree: " << degree << endl;
+    cout << left << setw(10) << "Mother: "
+         << (getMother() ? (getMother()->getFirstName() + " " + getMother()->getLastName()) : "NOT SET") << '\n';
+    cout << left << setw(10) << "Father: "
+         << (getFather() ? (getFather()->getFirstName() + " " + getFather()->getLastName()) : "NOT SET") << '\n';
+
+    cout << left << setw(10) << " | Name: " << left << getName() << '\n'
+         << left << setw(10) << " | Address: " << left << getAddress() << '\n'
+         << left << setw(10) << " | Height: " << left << fixed << setprecision(1) << getHeight() << " in" << '\n'
+         << left << setw(10) << " | DOB: " << left << getDOB() << '\n'
+         << left << setw(10) << " | Gender: " << left << getGender() << '\n'
+         << left << setw(10) << " | Age: " << left << static_cast<int>(getAge()) << '\n'
+         << "    Employee ID: " << employeeID << '\n'
+         << "    Department: " << department << '\n'
+         << "    Degree: " << degree << '\n';
 }
 
 // Equals
-bool professorType::equals(const professorType& other) const {
-    return personType::equals(other) &&
-           employeeID == other.employeeID &&
-           department == other.department &&
-           degree == other.degree;
+bool professorType::equals(const personType& other) const {
+    auto otherProf = dynamic_cast<const professorType*>(&other);
+    if (!otherProf) return false;
+    if (!baseEquals(other)) return false;
+    return employeeID == otherProf->employeeID &&
+           department == otherProf->department &&
+           degree == otherProf->degree;
 }

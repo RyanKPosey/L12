@@ -13,10 +13,13 @@
 
 /**
  * \class personType
- * \brief Represents a person with identity and basic demographics.
- * \details Stores name, address, DOB, gender, height (inches), age,
- * and optional parent pointers (mother/father). Parent pointers are
- * non-owning raw pointers that may be nullptr when unknown.
+ * \brief Abstract base class for people (identity + demographics).
+ * \details Provides common data members (name, address, DOB, gender,
+ * height, age) and optional parent pointers (mother/father). It cannot
+ * be instantiated directly because it declares pure virtual functions
+ * `print()` and `equals()`. Derived concrete classes (e.g. studentType,
+ * professorType) must implement role-specific output and equality.
+ * Parent pointers are non-owning raw pointers that may be nullptr.
  */
 class personType { 
     /** \brief First name (may be sentinel like "Not Set"). */
@@ -124,30 +127,30 @@ public:
     virtual ~personType();
 
     /**
-     * @brief Print a formatted representation of the person.
-     *
-     * This member is virtual so derived classes can override the output
-     * format. It streams a human-readable representation to stdout.
-     *
-     * @pre  std::cout is available.
+     * @brief Pure virtual: print a formatted, role-specific representation.
+     * @pre std::cout is available.
      * @post Streams a human-readable representation to stdout.
-     * @example
-     * @code{.cpp}
-     * personType p("A","B");
-     * p.print();
-     * @endcode
      */
-    virtual void print() const;
+    virtual void print() const = 0;
 
     /**
-     * @brief Compare two personType objects case-insensitively for string fields.
-     *
-     * @param other Other personType to compare.
-     * @return true if fields are equal (case-insensitive for strings).
-     * @post No state modification.
+     * @brief Pure virtual: polymorphic equality comparison.
+     * @param other Reference to another personType.
+     * @return true if both base fields and role-specific fields match.
+     * @details Derived implementations should use baseEquals(other) then
+     * compare their own additional members.
      */
-    bool equals(const personType& other) const;
+    virtual bool equals(const personType& other) const = 0;
 
+protected:
+    /**
+     * @brief Compare only base-class fields (case-insensitive where appropriate).
+     * @param other Another personType.
+     * @return true if all base members match.
+     */
+    bool baseEquals(const personType& other) const;
+
+public: // Expose setters/getters publicly for driver usage
     // Setters
     /**
      * @brief Set the full name from a single "First Last" string (splits on whitespace).

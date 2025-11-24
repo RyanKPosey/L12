@@ -88,14 +88,29 @@ string studentType::getClassification() const {
 }
 
 void studentType::print() const {
-        personType::print();
-        cout << "\tID: " << id << endl;
-        cout << "\tClassification: " << classification << endl;
-        cout << "\tGPA: " << setprecision(2) << showpoint << gpa << endl;
+    // Parent info
+    cout << left << setw(10) << "Mother: "
+            << (getMother() ? (getMother()->getFirstName() + " " + getMother()->getLastName()) : "NOT SET") << '\n';
+    cout << left << setw(10) << "Father: "
+            << (getFather() ? (getFather()->getFirstName() + " " + getFather()->getLastName()) : "NOT SET") << '\n';
+
+    cout << left << setw(10) << " | Name: " << left << getName() << '\n'
+            << left << setw(10) << " | Address: " << left << getAddress() << '\n'
+            << left << setw(10) << " | Height: " << left << fixed << setprecision(1) << getHeight() << " in" << '\n'
+            << left << setw(10) << " | DOB: " << left << getDOB() << '\n'
+            << left << setw(10) << " | Gender: " << left << getGender() << '\n'
+            << left << setw(10) << " | Age: " << left << static_cast<int>(getAge()) << '\n'
+            << "    ID: " << id << '\n'
+            << "    Classification: " << classification << '\n'
+            << "    GPA: " << setprecision(2) << showpoint << gpa << '\n';
 }
-bool studentType::equals(const studentType& other) const {
-        return personType::equals(other) &&
-                         id == other.id &&
-                         classification == other.classification &&
-                         gpa == other.gpa;
+
+bool studentType::equals(const personType& other) const {
+    // Ensure same dynamic type
+    auto otherStudent = dynamic_cast<const studentType*>(&other);
+    if (!otherStudent) return false;
+    if (!baseEquals(other)) return false; // compare base members
+    return id == otherStudent->id &&
+                 classification == otherStudent->classification &&
+                 gpa == otherStudent->gpa;
 }

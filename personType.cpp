@@ -3,6 +3,11 @@
     Assignment: L12D
     Purpose: Practice dynamic memory allocation
     Due date: 11/16/2025
+/*
+    Programmer: Ryan Posey
+    Assignment: L12E
+    Purpose: Abstract base class implementation (personType)
+    Date: 11/24/2025
 */
 
 #include <iostream>
@@ -13,8 +18,9 @@
 
 using namespace std;
 
-personType::personType( // Full constructor
-    const string& firstName, const string& lastName, const string& address, 
+// Full constructor
+personType::personType(
+    const string& firstName, const string& lastName, const string& address,
     double height, const string& DOB, char gender, uint16_t age
 ) {
     firstName_ = firstName;
@@ -26,8 +32,8 @@ personType::personType( // Full constructor
     age_ = age;
 }
 
-
-personType::personType(const string& firstName, const string& lastName) { // First+Last constructor
+// First + Last constructor
+personType::personType(const string& firstName, const string& lastName) {
     firstName_ = firstName;
     lastName_ = lastName;
     address_ = "Not Set";
@@ -37,7 +43,8 @@ personType::personType(const string& firstName, const string& lastName) { // Fir
     age_ = 0;
 }
 
-personType::personType() { // Default constructor
+// Default constructor
+personType::personType() {
     firstName_ = "Not Set";
     lastName_ = "";
     address_ = "Not Set";
@@ -47,213 +54,111 @@ personType::personType() { // Default constructor
     age_ = 0;
 }
 
-personType::personType(const personType& other) { // Shallow copy constructor
-    firstName_ = other.firstName_;
-    lastName_ = other.lastName_;
-    address_ = other.address_;
-    height_inches_ = other.height_inches_;
-    date_of_birth_ = other.date_of_birth_;
-    gender_ = other.gender_;
-    age_ = other.age_;
-    mother = other.mother;
-    father = other.father;
+// Shallow copy constructor
+personType::personType(const personType& other)
+    : firstName_(other.firstName_)
+    , lastName_(other.lastName_)
+    , address_(other.address_)
+    , height_inches_(other.height_inches_)
+    , date_of_birth_(other.date_of_birth_)
+    , gender_(other.gender_)
+    , age_(other.age_)
+    , mother(other.mother)
+    , father(other.father)
+{
 }
 
-personType::~personType() { // Destructor
-    //cout << "Destructor has been called" << endl;
+personType::~personType() {
+    // No dynamic ownership; nothing to free.
 }
 
-
-bool compareStringCaseInsensitive(const string& string1, const string& string2) { // Stretch 3 (Case Insensitive Comparison)
-    if (string1.size() != string2.size()) { // string1 and string2 aren't the same size
-        return false;
-    }
-
-    for (size_t i = 0; i < string1.size(); i++) {
-        if (
-            static_cast<unsigned char>(tolower(static_cast<unsigned char>(string1[i]))) !=
-            static_cast<unsigned char>(tolower(static_cast<unsigned char>(string2[i])))
-        ) {
+// Helper: case-insensitive string comparison
+bool compareStringCaseInsensitive(const string& a, const string& b) {
+    if (a.size() != b.size()) return false;
+    for (size_t i = 0; i < a.size(); ++i) {
+        if (static_cast<unsigned char>(tolower(static_cast<unsigned char>(a[i]))) !=
+            static_cast<unsigned char>(tolower(static_cast<unsigned char>(b[i])))) {
             return false;
         }
     }
     return true;
 }
 
-void personType::print() const { // Stretch 2 (Formatted output)
-    if (this->getMother() != nullptr) {
-        cout << left << setw(10) << "Mother: " << 
-            left << this->getMother()->getFirstName() << " " << this->getMother()->getLastName() << endl;
-    } else {
-        cout << left << setw(10) << "Mother: " << left << "NOT SET" << endl;
-    }
-
-    if (this->getFather() != nullptr) {
-        cout << left << setw(10) << "Father: " << 
-            left << this->getFather()->getFirstName() << " " << this->getFather()->getLastName() << endl;
-    } else {
-        cout << left << setw(10) << "Father: " << left << "NOT SET" << endl;
-    }
-
-    std::cout <<  left << setw(10) << " | Name: " << left << this->getName() << 
-        left << setw(10) << " | Address: " << left << this->getAddress() << endl <<
-        left << setw(10) << " | Height: " << left << std::fixed << std::setprecision(1) << this->getHeight() << " in" <<
-        left << setw(10) << " | DOB: " << left << this->getDOB() << endl <<
-        left << setw(10) << " | Gender: " << left << this->getGender() <<
-        left << setw(10) << " | Age: " << left << static_cast<int>(this->getAge()) << endl;
-}
-
-bool personType::equals(const personType& other) const {
-    // Circuited comparison
-    if (!compareStringCaseInsensitive(this->getName(), other.getName())) {
-        return false;
-    }
-
-    if (!compareStringCaseInsensitive(this->getAddress(), other.getAddress())) {
-        return false;
-    }
-
-    if (this->getHeight() != other.getHeight())  {
-        return false;
-    }
-
-    if (!compareStringCaseInsensitive(this->getDOB(), other.getDOB())) {
-        return false;
-    }
-
-    if (
-        static_cast<unsigned char>(tolower(static_cast<unsigned char>(this->getGender()))) != // Case insensitive
-        static_cast<unsigned char>(tolower(static_cast<unsigned char>(other.getGender())))
-    ) {
-        return false;
-    }
-
-    if (this->getAge() != other.getAge()) {
-        return false;
-    }
-
+// Protected base comparison (used by derived equals())
+bool personType::baseEquals(const personType& other) const {
+    if (!compareStringCaseInsensitive(getName(), other.getName())) return false;
+    if (!compareStringCaseInsensitive(getAddress(), other.getAddress())) return false;
+    if (getHeight() != other.getHeight()) return false;
+    if (!compareStringCaseInsensitive(getDOB(), other.getDOB())) return false;
+    if (static_cast<unsigned char>(tolower(static_cast<unsigned char>(getGender()))) !=
+        static_cast<unsigned char>(tolower(static_cast<unsigned char>(other.getGender())))) return false;
+    if (getAge() != other.getAge()) return false;
     return true;
 }
 
-    // Setters
-
-    void personType::setName(const string& name) {
-        // Split into first and last at first whitespace. If none, store as first name.
-        size_t pos = name.find_first_of(" \t");
-        if (pos == string::npos) {
-            firstName_ = name;
+// Setters
+void personType::setName(const string& name) {
+    size_t pos = name.find_first_of(" \t");
+    if (pos == string::npos) {
+        firstName_ = name;
+        lastName_.clear();
+    } else {
+        firstName_ = name.substr(0, pos);
+        size_t startLast = name.find_first_not_of(" \t", pos);
+        if (startLast == string::npos) {
             lastName_.clear();
         } else {
-            firstName_ = name.substr(0, pos);
-            // skip multiple spaces/tabs
-            size_t startLast = name.find_first_not_of(" \t", pos);
-            if (startLast == string::npos) {
-                lastName_.clear();
-            } else {
-                lastName_ = name.substr(startLast);
-            }
+            lastName_ = name.substr(startLast);
         }
     }
+}
 
-    void personType::setFirstName(const string& firstName) {
-        firstName_ = firstName;
-    }
+void personType::setFirstName(const string& firstName) { firstName_ = firstName; }
+void personType::setLastName(const string& lastName) { lastName_ = lastName; }
+void personType::setAddress(const string& address) { address_ = address; }
+void personType::setHeight(double height) { height_inches_ = (height < 0 || height > 120) ? 0 : height; }
+void personType::setDOB(const string& DOB) { date_of_birth_ = DOB; }
+void personType::setGender(char gender) { gender_ = gender; }
+void personType::setAge(uint16_t age) { age_ = (age > 999) ? 0 : age; }
+void personType::setMother(personType* m) { mother = m; }
+void personType::setFather(personType* f) { father = f; }
 
-    void personType::setLastName(const string& lastName) {
-        lastName_ = lastName;
-    }
+// Getters
+string personType::getName() const { return lastName_.empty() ? firstName_ : (firstName_ + " " + lastName_); }
+string personType::getFirstName() const { return firstName_; }
+string personType::getLastName() const { return lastName_; }
+string personType::getAddress() const { return address_; }
+double personType::getHeight() const { return height_inches_; }
+string personType::getDOB() const { return date_of_birth_; }
+char personType::getGender() const { return gender_; }
+uint16_t personType::getAge() const { return age_; }
+personType* personType::getMother() const { return mother; }
+personType* personType::getFather() const { return father; }
 
-    void personType::setAddress(const string& address) {
-        address_ = address;
-    }
-
-    void personType::setHeight(double height) {
-        if (height < 0 || height > 120) {
-            height = 0;
-        }
-
-        height_inches_ = height;
-    }
-
-    void personType::setDOB(const string& DOB) {
-        date_of_birth_ = DOB;
-    }
-
-    void personType::setGender(char gender) {
-        gender_ = gender;
-    }
-
-    void personType::setAge(uint16_t age) {
-        if (age > 999) {
-            age = 0;
-        }
-
-        age_ = static_cast<uint16_t>(age);
-    }
-
-    personType* personType::getMother() const {
-        return mother;
-    }
-
-    personType* personType::getFather() const {
-        return father;
-    }
-
-
-    // Getters
-
-    string personType::getName() const { 
-        if (lastName_.empty()) return firstName_;
-        return firstName_ + " " + lastName_; 
-    }
-    string personType::getFirstName() const { return firstName_; }
-    string personType::getLastName() const { return lastName_; }
-    string personType::getAddress() const { return address_; }
-    double personType::getHeight() const { return height_inches_; }
-    string personType::getDOB() const { return date_of_birth_; }
-    char personType::getGender() const { return gender_; }
-    uint16_t personType::getAge() const { return age_; }
-
+// Static utilities
 int personType::getTallest(const vector<personType>& people) {
-    if (people.empty()) return -1; // Return -1 if vector is empty
+    if (people.empty()) return -1;
     size_t tallestIndex = 0;
-    // Find tallest index
-    for (size_t i = 1; i < people.size(); i++) { 
-        if (people[i].getHeight() > people[tallestIndex].getHeight()) {
-            tallestIndex = i;
-        }
+    for (size_t i = 1; i < people.size(); ++i) {
+        if (people[i].getHeight() > people[tallestIndex].getHeight()) tallestIndex = i;
     }
-    return static_cast<int>(tallestIndex); // Return int so compatible with iostream
+    return static_cast<int>(tallestIndex);
 }
 
 int personType::getOldest(const vector<personType>& people) {
-    if (people.empty()) return -1; // Return -1 if vector is empty
+    if (people.empty()) return -1;
     size_t oldestIndex = 0;
-    // Find oldest index
-    for (size_t i = 1; i < people.size(); i++) {
-        if (people[i].getAge() > people[oldestIndex].getAge()) {
-            oldestIndex = i;
-        }
+    for (size_t i = 1; i < people.size(); ++i) {
+        if (people[i].getAge() > people[oldestIndex].getAge()) oldestIndex = i;
     }
-    return static_cast<int>(oldestIndex); // Return int so compatible with iostream
+    return static_cast<int>(oldestIndex);
 }
 
 int personType::getYoungest(const vector<personType>& people) {
-    if (people.empty()) return -1; // Return -1 if vector is empty
+    if (people.empty()) return -1;
     size_t youngestIndex = 0;
-    // Find youngest index
-    for (size_t i = 1; i < people.size(); i++) {
-        if (people[i].getAge() < people[youngestIndex].getAge()) {
-            youngestIndex = i;
-        }
+    for (size_t i = 1; i < people.size(); ++i) {
+        if (people[i].getAge() < people[youngestIndex].getAge()) youngestIndex = i;
     }
-    return static_cast<int>(youngestIndex); // Return int so compatible with iostream
-}
-
-void personType::setMother(personType* mother) {
-    this->mother = mother;
-}
-
-void personType::setFather(personType* father) {
-    this->father = father;
+    return static_cast<int>(youngestIndex);
 }

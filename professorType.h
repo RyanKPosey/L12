@@ -254,6 +254,10 @@ public:
     * p.print();
     * @endcode
      */
+    /**
+     * @brief Print role-specific professor data (implements abstract base).
+     * @details Outputs parent info, base fields, then employeeID, department, degree.
+     */
     void print() const override;
 
     /**
@@ -274,7 +278,12 @@ public:
     * bool same = a.equals(b); // true
     * @endcode
      */
-    bool equals(const professorType&) const;
+    /**
+     * @brief Polymorphic equality (implements abstract base).
+     * @param other Base reference to compare.
+     * @return true if base fields and professor-specific fields match.
+     */
+    bool equals(const personType& other) const override;
 
 private:
     /** \brief Employee identifier (may be "NOT SET"). */

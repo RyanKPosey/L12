@@ -149,24 +149,18 @@ public:
     std::string getClassification() const;
 
     /**
-     * @brief Print the student data to stdout (overrides personType::print).
-     *
-     * @pre  std::cout is available.
-     * @post Streams a human-readable representation of the student to stdout.
-     * @details
-     * This override should call `personType::print()` to emit the common
-     * person fields (name, address, DOB, etc.) and then output the
-     * student-specific fields such as GPA, classification, and student ID.
+     * @brief Print role-specific student data (implements abstract base).
+     * @details Outputs parent info (mother/father or NOT SET), core person
+     * fields, then student-specific fields (ID, classification, GPA).
      */
     void print() const override;
 
     /**
-     * @brief Compare two studentType objects for equality.
-     *
-     * @param other Other student to compare.
-     * @return true if all fields are equal.
+     * @brief Polymorphic equality (implements abstract base).
+     * @param other Base reference to compare against.
+     * @return true if base fields and student-specific fields match.
      */
-    bool equals(const studentType&) const;
+    bool equals(const personType& other) const override;
 
     /**
      * @brief Destructor.
